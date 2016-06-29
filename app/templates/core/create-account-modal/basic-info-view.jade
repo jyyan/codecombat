@@ -30,25 +30,58 @@ form#basic-info-form.modal-body.basic-info
               span(data-i18n="TODO")
                 | Last initial:
             input#last-name-input(name="lastName" maxlength="1")
-      .row
-        .form-group
-          label.control-label(for="email-input")
-            span(data-i18n="TODO")
-              | Email address:
-          input#email-input(name="email" type="email")
-      .row
-        //- This form group needs a parent so its errors can be cleared individually
-        .form-group
-          label.control-label(for="username-input")
-            span(data-i18n="TODO")
-              | Username:
-          input#username-input(name="name")
+      .form-group
+        .row
+          .col-xs-5.col-xs-offset-3
+            label.control-label(for="email-input")
+              span(data-i18n="TODO")
+                | Email address:
+          .col-xs-5.col-xs-offset-3
+            input.form-control.input-lg#email-input(name="email" type="email")
+          .col-xs-4.email-check
+            - var emailCheck = view.state.get('emailCheck');
+            if emailCheck === 'checking'
+              span.small(data-i18n="signup.checking")
+            if emailCheck === 'exists'
+              span.small
+                span.text-burgandy.glyphicon.glyphicon-remove-circle
+                =" "
+                span(data-i18n="signup.account_exists")
+                =" "
+                a.login-link(data-i18n="signup.sign_in")
+              
+            if emailCheck === 'available'
+              span.small
+                span.text-forest.glyphicon.glyphicon-ok-circle
+                =" "
+                span(data-i18n="signup.email_good")
+      .form-group
+        .row
+          .col-xs-5.col-xs-offset-3
+            label.control-label(for="username-input")
+              span(data-i18n="TODO")
+                | Username:
+          .col-xs-5.col-xs-offset-3
+            input.form-control.input-lg#username-input(name="name")
+          .col-xs-4.name-check
+            - var nameCheck = view.state.get('nameCheck');
+            if nameCheck === 'checking'
+              span.small(data-i18n="signup.checking")
+            if nameCheck === 'exists'
+              span.small
+                span.text-burgandy.glyphicon.glyphicon-remove-circle
+            if nameCheck === 'available'
+              span.small
+                span.text-forest.glyphicon.glyphicon-ok-circle
       .row
         .form-group
           label.control-label(for="password-input")
             span(data-i18n="TODO")
               | Password:
-          input#password-input(name="password" type="password")
+          .col-xs-5.col-xs-offset-3
+            input.form-control.input-lg#password-input(name="password" type="password")
+          .col-xs.name-check
+            
       .row
         .form-group.checkbox.subscribe
           label.control-label(for="subscribe-input")
@@ -58,9 +91,8 @@ form#basic-info-form.modal-body.basic-info
 
   // In reverse order for tabbing purposes
   .history-nav-buttons
-    button.next-button.btn.btn-lg.btn-navy(type='submit')
-      span(data-i18n="TODO")
-        | Create Account
+    button#create-account-btn.next-button.btn.btn-lg.btn-navy(type='submit')
+      span(data-i18n="signup.create_account")
 
     button.back-button.btn.btn-lg.btn-navy-alt(type='button')
       span(data-i18n="TODO")
